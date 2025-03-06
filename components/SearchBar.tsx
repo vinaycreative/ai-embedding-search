@@ -38,6 +38,15 @@ export default function SearchBar({ api }: { api: string }) {
     fetchCompanies(query, industry, country);
   };
 
+  const searchSuggestions = [
+    "I am looking for a fintech company specializing in AI-driven investment strategies.",
+    "Find a renewable energy startup focused on solar power solutions.",
+    "Looking for an AI company in healthcare that develops diagnostic tools.",
+    "Show me companies working on autonomous vehicles and self-driving technology.",
+    "I need a cybersecurity firm that provides enterprise-level data protection.",
+    // Add more from the list above...
+  ];
+
   return (
     <div className="w-full bg-gray-100 h-auto flex-1 flex flex-col overflow-hidden">
       <div className="bg-white border-b border-gray-300 px-6 ">
@@ -49,11 +58,18 @@ export default function SearchBar({ api }: { api: string }) {
         <div className="flex flex-col md:flex-row gap-2 mb-4">
           <input
             type="text"
+            list="search-suggestions"
             placeholder="Describe the company you're looking for..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="w-full px-4 text-[15px] py-2 border text-gray-700 border-gray-400 bg-white rounded-md focus:border-blue-500"
           />
+          <datalist id="search-suggestions">
+            {searchSuggestions.map((suggestion, index) => (
+              <option key={index} value={suggestion} />
+            ))}
+          </datalist>
+
           <button
             onClick={handleSearch}
             className="bg-blue-500 border border-blue-700 cursor-pointer transition-all text-white px-4 py-2 rounded-md hover:bg-blue-600"
